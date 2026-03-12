@@ -78,10 +78,11 @@ export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
     // -----------------------
     // CHANGE 1: Video element check
     // -----------------------
-    if (!videoRef.current) {
-        console.warn("Video element is not mounted yet!"); // highlight: added check
-        return;
-    }
+    useEffect(() => {
+  if (videoRef.current) {
+    init({ landmarkerRef, videoRef, streamRef });
+  }
+}, []);
 
     const vision = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
