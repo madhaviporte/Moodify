@@ -1,0 +1,14 @@
+why we don't use REDIS as primary database
+
+=> costly => use krta hai RAM
+=> query nahi kr skte => key value pair me store krta hai or value string types me hoti hai
+
+throughput of redis is very high
+
+authUser
+
+authUser ==> /api/posts/like/:postid --------->
+authUser ==> /api/posts/save/:postid     ----->server------->[database se connect hota hai]
+authUser ==> /api/posts/comment/:postid  ----->
+authUser ==> /api/story/like/:postid --------->
+

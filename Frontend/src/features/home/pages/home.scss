@@ -1,0 +1,52 @@
+$bg-overlay1: rgba(15, 23, 42, 0.85);
+$bg-overlay2: rgba(30, 41, 59, 0.9);
+$card-bg: #1e293b;
+$text-light: #ffffff;
+$text-sub: #cbd5f5;
+
+.home {
+  min-height: 100vh;
+
+  background:
+    linear-gradient(135deg, $bg-overlay1, $bg-overlay2),
+    url("../../assets/bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Inter", sans-serif;
+
+  &-container {
+    width: 90%;
+    max-width: 900px;
+    background: $card-bg;
+    padding: 2rem;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+
+    .title {
+      font-size: 2rem;
+      color: $text-light;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: $text-sub;
+      margin-bottom: 2rem;
+    }
+
+    .expression-box {
+      margin-bottom: 2rem;
+    }
+
+    .player-box {
+      margin-top: 1rem;
+    }
+  }
+}

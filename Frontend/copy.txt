@@ -1,0 +1,26 @@
+token blacklisting(token create hone ke bad koi token ko chori naa kr le ish liye token blacklisting ka use hota hai)
+
+(store token)user ------> server(create token)
+
+each token are different create by user
+
+UI ===> UI dikhana or navigate handle krna 
+folder:(pages,components)
+
+hook ===> State and APIs ko handle krna 
+folder:[hook]
+
+State ===> data ko store krna
+file:[auth.context.jsx,post.context.jsx]
+
+API ===> frontend ko commuunicate krna hai backent se to ham API ka use krte hai
+folder:[service/aut.api.js]
+
+1)UI--->2)API--->3)State-->4)hook
+
+
+//react-router ke madat se ham login and register wala form create kr skte hai
+// /login ==> login form
+// /register ==> register form
+
+navigate(Link) ----> ek link se duusre link pr pahuch jana ishke help se
