@@ -8,8 +8,7 @@ $text-sub: #cbd5f5;
   min-height: 100vh;
 
   background:
-    linear-gradient(135deg, $bg-overlay1, $bg-overlay2),
-    url("../../assets/bg.jpg");
+    linear-gradient(135deg, $bg-overlay1, $bg-overlay2);
 
   background-size: cover;
   background-position: center;
