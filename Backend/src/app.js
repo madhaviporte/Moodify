@@ -1,17 +1,26 @@
 const express = require("express");
-const cookiePasrser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const cors = require("cors")
 const path = require("path")
 
 const app = express()
 app.use(express.json());
-app.use(cookiePasrser());
+app.use(cookieParser());
+
+const isDev = process.env.NODE_ENV !== "production";
+
+if(isDev){
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true
 }))
-app.use(express.static("./public"))
-
+}
+if(!isDev){
+app.use(express.static(path.join(__dirname, "./public")))
+app.get("*name", (req,res)=>{
+    res.sendFile(path.join(__dirname, "../public", "index.htlm"));
+})
+}
 // Routes
 
 const authRoutes = require("./routes/auth.routes")
