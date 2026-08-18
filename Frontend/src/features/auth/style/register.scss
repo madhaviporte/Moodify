@@ -1,36 +1,5 @@
+@use "auth-common";
 
-.register-page{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-
-.form-container{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    min-width: 300px;
-}
-form{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    .form-group{
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-
-        input{
-        padding: 0.5rem;
-        border-radius: 0.25rem;
-        border: 1px solid #ccc;
-
-        border: none;
-        outline: none;
-        }
-    }
-}
-}
+// Register-specific overrides (if any)
+// The shared auth-common styles handle the bulk of the theming.
+// This file is kept for any register-specific customizations.

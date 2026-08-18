@@ -1,0 +1,779 @@
+// ============================================
+// AUTH COMMON — Moodify Premium Music Theme
+// Matches reference: full-screen two-column
+// ============================================
+
+// ── Theme Colors ──
+$bg-dark: #0a0a0f;
+$bg-card: rgba(16, 16, 26, 0.88);
+$bg-card-border: rgba(255, 255, 255, 0.08);
+$purple-deep: #1a1030;
+$purple-light: #7c3aed;
+$orange-accent: #ff6b35;
+$pink-accent: #e040fb;
+$gradient-brand: linear-gradient(135deg, #ff6b35 0%, #e040fb 50%, #7c3aed 100%);
+$gradient-btn: linear-gradient(135deg, #ff6b35 0%, #e040fb 100%);
+$gradient-bg: linear-gradient(160deg, #0a0a0f 0%, #12081f 40%, #1a0a2e 100%);
+$text-primary: #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.55);
+$text-muted: rgba(255, 255, 255, 0.35);
+$input-bg: rgba(255, 255, 255, 0.06);
+$input-border: rgba(255, 255, 255, 0.12);
+$glow-purple: rgba(124, 58, 237, 0.35);
+$glow-orange: rgba(255, 107, 53, 0.3);
+
+// ============================================
+// Keyframes
+// ============================================
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-6px) rotate(3deg); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes orbDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(40px, -30px) scale(1.08); }
+  66%      { transform: translate(-20px, 20px) scale(0.95); }
+}
+@keyframes orbDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-30px, 30px) scale(0.92); }
+  66%      { transform: translate(35px, -15px) scale(1.06); }
+}
+@keyframes noteFloat1 {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+  50%  { transform: translateY(-30px) rotate(15deg); opacity: 0.9; }
+  100% { transform: translateY(-60px) rotate(-5deg); opacity: 0; }
+}
+@keyframes noteFloat2 {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+  50%  { transform: translateY(-40px) rotate(-10deg); opacity: 0.8; }
+  100% { transform: translateY(-70px) rotate(8deg); opacity: 0; }
+}
+@keyframes particleFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50%      { transform: translateY(-15px) scale(1.5); opacity: 0.7; }
+}
+@keyframes eqBounce {
+  0%, 100% { transform: scaleY(0.3); }
+  50%      { transform: scaleY(1); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 0.7; }
+}
+
+// ============================================
+// Full-Screen Auth Page
+// ============================================
+.auth-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  background: $gradient-bg;
+  overflow: hidden;
+  position: relative;
+
+  // Parallax custom properties (set by JS hook)
+  --mx: 0;
+  --my: 0;
+  --mxp: 0;
+  --cx: 50%;
+  --cy: 50%;
+}
+
+// ============================================
+// LEFT — Visual Panel (cinematic music scene)
+// ============================================
+.auth-visual {
+  position: relative;
+  width: 55%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 4vw, 5rem);
+
+  // Cinematic gradient background
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(124, 58, 237, 0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 70%, rgba(255, 107, 53, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, rgba(224, 64, 251, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(255, 107, 53, 0.15) 0%, transparent 40%),
+    linear-gradient(180deg, #0d0618 0%, #15082a 30%, #1a0a2e 60%, #12081f 100%);
+
+  // Dark overlay gradient for depth
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.4) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  // Right edge fade into form area
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: clamp(40px, 6vw, 100px);
+    background: linear-gradient(90deg, transparent, rgba(10, 10, 15, 0.6));
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+// ── Floating ambient orbs (depth: 2px) ──
+.visual-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+  transform: translate(calc(var(--mx) * 2px), calc(var(--my) * 2px));
+  transition: transform 0.1s ease-out;
+
+  &--1 {
+    width: 300px; height: 300px;
+    background: $glow-purple;
+    top: 5%; left: 10%;
+    animation: orbDrift1 14s ease-in-out infinite;
+  }
+  &--2 {
+    width: 220px; height: 220px;
+    background: $glow-orange;
+    bottom: 20%; right: 15%;
+    animation: orbDrift2 16s ease-in-out infinite 2s;
+  }
+  &--3 {
+    width: 160px; height: 160px;
+    background: rgba(224, 64, 251, 0.2);
+    top: 50%; left: 40%;
+    animation: orbDrift1 12s ease-in-out infinite 1s;
+  }
+}
+
+// ── Floating music notes (depth: 12px — fastest) ──
+.visual-note {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  color: rgba(224, 64, 251, 0.4);
+  font-size: 1.4rem;
+  animation: noteFloat1 6s ease-in-out infinite;
+  will-change: transform;
+  transform: translate(calc(var(--mx) * 12px), calc(var(--my) * 12px));
+  transition: transform 0.12s ease-out;
+
+  &--1 { top: 15%; left: 20%; animation-delay: 0s; font-size: 1.2rem; }
+  &--2 { top: 25%; left: 60%; animation-delay: 1.5s; font-size: 1.6rem; color: rgba(255, 107, 53, 0.35); animation-name: noteFloat2; }
+  &--3 { top: 40%; left: 35%; animation-delay: 3s; font-size: 1rem; }
+  &--4 { top: 10%; left: 75%; animation-delay: 2s; font-size: 1.3rem; color: rgba(124, 58, 237, 0.4); animation-name: noteFloat2; }
+  &--5 { top: 55%; left: 15%; animation-delay: 4s; font-size: 1.1rem; color: rgba(255, 107, 53, 0.3); }
+  &--6 { top: 30%; left: 80%; animation-delay: 0.8s; font-size: 1.5rem; color: rgba(224, 64, 251, 0.3); animation-name: noteFloat2; animation-duration: 7s; }
+}
+
+// ── Floating particles (depth: 10px) ──
+.visual-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  z-index: 3;
+  pointer-events: none;
+  animation: particleFloat 4s ease-in-out infinite;
+  will-change: transform;
+  transform: translate(calc(var(--mx) * 10px), calc(var(--my) * 10px));
+  transition: transform 0.14s ease-out;
+
+  &--1 { top: 20%; left: 25%; animation-delay: 0s; }
+  &--2 { top: 35%; left: 55%; animation-delay: 1s; width: 2px; height: 2px; }
+  &--3 { top: 50%; left: 70%; animation-delay: 2s; width: 4px; height: 4px; background: rgba(224, 64, 251, 0.3); }
+  &--4 { top: 15%; left: 45%; animation-delay: 0.5s; width: 2px; height: 2px; }
+  &--5 { top: 60%; left: 30%; animation-delay: 3s; background: rgba(255, 107, 53, 0.3); }
+  &--6 { top: 45%; left: 85%; animation-delay: 1.5s; width: 2px; height: 2px; }
+  &--7 { top: 70%; left: 50%; animation-delay: 2.5s; background: rgba(124, 58, 237, 0.4); }
+  &--8 { top: 25%; left: 10%; animation-delay: 0.3s; width: 2px; height: 2px; }
+}
+
+// ── Brand content (depth: 8px) ──
+.visual-content {
+  position: relative;
+  z-index: 4;
+  animation: slideInLeft 0.8s ease-out 0.3s both;
+  will-change: transform;
+  transform: translate(calc(var(--mx) * 8px), calc(var(--my) * 8px));
+  transition: transform 0.12s ease-out;
+}
+
+.visual-equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(3px, 0.4vw, 6px);
+  margin-bottom: clamp(0.5rem, 1.5vw, 1.5rem);
+  height: clamp(28px, 4vw, 48px);
+
+  .eq-bar {
+    width: clamp(4px, 0.5vw, 7px);
+    border-radius: 3px;
+    background: $gradient-brand;
+    animation: eqBounce 1.2s ease-in-out infinite;
+
+    &:nth-child(1) { height: 60%; animation-delay: 0s; }
+    &:nth-child(2) { height: 100%; animation-delay: 0.15s; }
+    &:nth-child(3) { height: 45%; animation-delay: 0.3s; }
+    &:nth-child(4) { height: 80%; animation-delay: 0.1s; }
+    &:nth-child(5) { height: 55%; animation-delay: 0.25s; }
+    &:nth-child(6) { height: 90%; animation-delay: 0.05s; }
+    &:nth-child(7) { height: 40%; animation-delay: 0.2s; }
+  }
+}
+
+.visual-brand {
+  font-size: clamp(2rem, 4vw + 0.5rem, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: clamp(0.5rem, 1.5vw, 1.5rem);
+  background: $gradient-brand;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.visual-tagline {
+  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+  color: $text-secondary;
+  line-height: 1.6;
+  max-width: clamp(240px, 22vw, 360px);
+}
+
+// ── Bottom waveform (depth: 6px) ──
+.visual-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.2;
+  will-change: transform;
+  transform: translate(calc(var(--mx) * 6px), calc(var(--my) * 6px));
+  transition: transform 0.12s ease-out;
+
+  svg { width: 100%; height: 100%; }
+}
+
+// ============================================
+// RIGHT — Form Area
+// ============================================
+.auth-form-area {
+  width: 45%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+  background: $gradient-bg;
+
+  // Full-height panel (login & register)
+  &--register,
+  &--login {
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  // Subtle glow in form area
+  &::before {
+    content: "";
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: $glow-purple;
+    filter: blur(100px);
+    top: 10%; right: -50px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+// ── Glassmorphism Form Card (3D tilt via parallax) ──
+.auth-card {
+  width: 100%;
+  max-width: clamp(380px, 32vw, 560px);
+  background: $bg-card;
+  border: 1px solid $bg-card-border;
+  border-radius: 20px;
+  padding: clamp(1.5rem, 3vw, 3rem);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(124, 58, 237, 0.06);
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+  position: relative;
+  will-change: transform;
+  transform:
+    perspective(1200px)
+    rotateY(calc(var(--mxp) * 3deg))
+    rotateX(calc(var(--my) * -2deg))
+    translate3d(0, 0, 0);
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 80px rgba(124, 58, 237, 0.1);
+  }
+}
+
+// ── Card Header ──
+.auth-header {
+  margin-bottom: clamp(1.2rem, 2vw, 2.5rem);
+
+  h1 {
+    font-size: clamp(1.3rem, 2vw + 0.3rem, 2rem);
+    font-weight: 700;
+    color: $text-primary;
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: clamp(0.82rem, 0.9vw, 1rem);
+    color: $text-secondary;
+  }
+}
+
+// ============================================
+// Form Styles
+// ============================================
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.9rem, 1.3vw, 1.4rem);
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    label {
+      font-size: clamp(0.75rem, 0.85vw, 0.9rem);
+      font-weight: 500;
+      color: $text-secondary;
+      letter-spacing: 0.03em;
+    }
+  }
+}
+
+// ── Input wrapper (with icon) ──
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    color: $text-muted;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  input {
+    width: 100%;
+    padding: clamp(0.7rem, 1vw, 1rem) 1rem clamp(0.7rem, 1vw, 1rem) 2.75rem;
+    background: $input-bg;
+    border: 1.5px solid $input-border;
+    border-radius: 12px;
+    color: $text-primary;
+    font-size: clamp(0.88rem, 1vw, 1.05rem);
+    outline: none;
+    transition: all 0.25s ease;
+
+    &::placeholder { color: $text-muted; }
+
+    &:focus {
+      border-color: rgba(124, 58, 237, 0.5);
+      background: rgba(124, 58, 237, 0.06);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+  }
+
+  // Password eye toggle
+  .input-toggle {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: $text-muted;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    z-index: 1;
+
+    &:hover { color: $text-secondary; }
+
+    svg { width: 18px; height: 18px; }
+  }
+}
+
+// ── Forgot password link ──
+.auth-forgot {
+  font-size: clamp(0.75rem, 0.85vw, 0.9rem);
+  color: $orange-accent;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  margin-left: auto;
+
+  &:hover { color: #ff8a5c; }
+}
+
+.auth-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.15rem;
+}
+
+// ============================================
+// Submit Button
+// ============================================
+.auth-submit {
+  width: 100%;
+  padding: clamp(0.7rem, 1vw, 1rem) 1.5rem;
+  border: none;
+  border-radius: 12px;
+  background: $gradient-btn;
+  color: white;
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-top: 0.5rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 30px rgba(255, 107, 53, 0.3),
+      0 4px 15px rgba(224, 64, 251, 0.2);
+
+    &::before {
+      opacity: 1;
+      animation: shimmer 1.5s infinite;
+    }
+  }
+
+  &:active:not(:disabled) { transform: translateY(0); }
+  &:disabled { opacity: 0.55; cursor: not-allowed; }
+}
+
+// ============================================
+// Error Message
+// ============================================
+.auth-error {
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+  border-radius: 10px;
+  padding: clamp(0.5rem, 0.8vw, 0.8rem) 1rem;
+  color: #ff6b6b;
+  font-size: clamp(0.8rem, 0.9vw, 0.92rem);
+  animation: fadeIn 0.3s ease;
+}
+
+// ============================================
+// Footer Link
+// ============================================
+.auth-footer {
+  margin-top: clamp(1rem, 1.5vw, 2rem);
+  text-align: center;
+  font-size: clamp(0.82rem, 0.9vw, 0.95rem);
+  color: $text-secondary;
+
+  a {
+    color: $orange-accent;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover { color: #ff8a5c; }
+  }
+}
+
+// ============================================
+// Full-height panels (Login & Register)
+// ============================================
+.auth-login-panel,
+.auth-register-panel {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 5rem);
+  position: relative;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+// Gradient text for headings
+.gradient-text {
+  background: $gradient-brand;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Login & Register headings — larger, bolder
+.auth-header--login,
+.auth-header--register {
+  margin-bottom: clamp(1.5rem, 3vw, 3rem);
+
+  h1 {
+    font-size: clamp(1.4rem, 2.5vw + 0.5rem, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: clamp(0.85rem, 1vw, 1.1rem);
+    color: $text-secondary;
+  }
+}
+
+// Login & Register forms — wider spacing
+.auth-form--login,
+.auth-form--register {
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+  max-width: clamp(420px, 38vw, 640px);
+}
+
+// Login & Register submit buttons
+.auth-submit--login,
+.auth-submit--register {
+  padding: clamp(0.8rem, 1.2vw, 1.15rem) 2rem;
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  border-radius: 14px;
+  margin-top: 0.75rem;
+}
+
+// ============================================
+// Cursor Glow (follows mouse)
+// ============================================
+.cursor-glow {
+  position: fixed;
+  width: clamp(200px, 25vw, 400px);
+  height: clamp(200px, 25vw, 400px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, rgba(224, 64, 251, 0.06) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  left: var(--cx, 50%);
+  top: var(--cy, 50%);
+  transition: opacity 0.3s;
+  opacity: 0.8;
+}
+
+// ── Form area background glow (follows mouse subtly) ──
+.auth-form-area::before {
+  transform: translate(
+    calc(var(--mx) * -15px),
+    calc(var(--my) * -15px)
+  );
+  transition: transform 0.2s ease-out;
+}
+
+// ============================================
+// Responsive — Tablet (≤900px)
+// ============================================
+@media (max-width: 900px) {
+  .auth-page {
+    flex-direction: column;
+  }
+
+  .auth-visual {
+    width: 100%;
+    min-height: 280px;
+    max-height: 320px;
+    padding: 2rem;
+    justify-content: center;
+
+    &::after { display: none; }
+  }
+
+  .visual-brand { font-size: 2.4rem; }
+  .visual-tagline { font-size: 0.95rem; }
+
+  .visual-note,
+  .visual-particle { display: none; }
+
+  // Disable parallax on tablet/mobile
+  .visual-orb,
+  .visual-note,
+  .visual-particle,
+  .visual-content,
+  .visual-wave {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .auth-card {
+    transform: none !important;
+    max-width: 460px;
+    padding: 2rem;
+  }
+
+  .cursor-glow { display: none; }
+
+  .auth-form-area {
+    width: 100%;
+    min-height: auto;
+    padding: 2rem 1.5rem;
+
+    &--register,
+    &--login {
+      align-items: stretch;
+      justify-content: flex-start;
+      padding: 0;
+    }
+  }
+
+  .auth-login-panel,
+  .auth-register-panel {
+    height: auto;
+    padding: 2rem 1.5rem;
+    justify-content: flex-start;
+  }
+
+  .auth-header--login h1,
+  .auth-header--register h1 {
+    font-size: 1.7rem;
+  }
+
+  .auth-form-area::before {
+    transform: none !important;
+  }
+}
+
+// ============================================
+// Responsive — Mobile (≤480px)
+// ============================================
+@media (max-width: 480px) {
+  .auth-visual {
+    min-height: 220px;
+    max-height: 260px;
+    padding: 1.5rem;
+  }
+
+  .visual-brand { font-size: 2rem; }
+  .visual-tagline { font-size: 0.85rem; }
+
+  .visual-equalizer { height: 28px; }
+  .visual-equalizer .eq-bar { width: 4px; }
+
+  .auth-form-area {
+    padding: 1.5rem 1rem;
+  }
+
+  .auth-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .auth-header h1 { font-size: 1.4rem; }
+
+  .auth-login-panel,
+  .auth-register-panel {
+    padding: 1.5rem 1rem;
+  }
+
+  .auth-header--login h1,
+  .auth-header--register h1 {
+    font-size: 1.4rem;
+  }
+
+  .auth-form--login,
+  .auth-form--register {
+    gap: 1rem;
+  }
+}
+
+// ============================================
+// Responsive — Large Desktop (>1440px)
+// ============================================
+@media (min-width: 1440px) {
+  .auth-visual {
+    padding: 5rem;
+  }
+
+  .visual-orb--1 {
+    width: 400px; height: 400px;
+  }
+  .visual-orb--2 {
+    width: 300px; height: 300px;
+  }
+  .visual-orb--3 {
+    width: 220px; height: 220px;
+  }
+
+  .auth-login-panel,
+  .auth-register-panel {
+    padding: 5rem 6rem;
+  }
+
+  .auth-form-area::before {
+    width: 400px; height: 400px;
+  }
+}
