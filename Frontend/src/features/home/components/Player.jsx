@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { SongContext } from '../song.context'
 import { useSong } from '../hooks/useSong'
 import './player.scss'
@@ -100,7 +100,11 @@ const Player = () => {
 
     const progress = duration ? (currentTime / duration) * 100 : 0
 
-    if (!song) return null
+    if (!song) return (
+        <div className="player" style={{ justifyContent: "center" }}>
+            <p style={{ color: "#888", fontSize: "0.9rem" }}>No song selected. Detect your expression to get a song.</p>
+        </div>
+    );
 
     return (
         <div className="player">

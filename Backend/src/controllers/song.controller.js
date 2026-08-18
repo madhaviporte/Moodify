@@ -1,54 +1,74 @@
-const songModel = require("../models/song.model")
-const storageService = require("../services/storage.service")
-const id3 = require("node-id3")
+const songModel = require("../models/song.model");
+const storageService = require("../services/storage.service");
+const id3 = require("node-id3");
 
-async function uploadSong(req,res){
-     
- const songBuffer = req.file.buffer 
- const {mood} = req.body
+async function uploadSong(req, res) {
+    if (!req.file) {
+        return res.status(400).json({ message: "No song file provided. Upload a file with field name 'song'." });
+    }
 
-   const tags =  id3.read(songBuffer)
+    const songBuffer = req.file.buffer;
+    const { mood } = req.body;
 
+    if (!mood) {
+        return res.status(400).json({ message: "Mood is required" });
+    }
 
- const [songFile, posterFile] = await Promise.all([
-    storageService.uploadFile({
-        buffer:songBuffer,
-        filename: tags.title+ ".mp3",
-        folder: "/cohort-2/moodify/songs"
-    }),
-    storageService.uploadFile({
-        buffer: tags.image.imageBuffer,
-        filename: tags.title + ".jpeg",
-        folder: "/cohort-2/moodify/posters"
-    })
-// ye dono line image or file ki song ko sathme upload hona suru krte hai ish liye time kam lgta hai upload hone me (optimization)
- ])
+    const tags = id3.read(songBuffer);
 
+    if (!tags.title) {
+        return res.status(400).json({ message: "MP3 file must have an embedded title tag" });
+    }
 
+    if (!tags.image || !tags.image.imageBuffer) {
+        return res.status(400).json({ message: "MP3 file must have embedded artwork" });
+    }
 
-   const song = await songModel.create({
-    title:tags.title,
-    url:songFile.url,
-    posterUrl: posterFile.url,
-    mood
-   })
+    const [songFile, posterFile] = await Promise.all([
+        storageService.uploadFile({
+            buffer: songBuffer,
+            filename: tags.title + ".mp3",
+            folder: "/cohort-2/moodify/songs"
+        }),
+        storageService.uploadFile({
+            buffer: tags.image.imageBuffer,
+            filename: tags.title + ".jpeg",
+            folder: "/cohort-2/moodify/posters"
+        })
+    ]);
 
-   res.status(201).json({
-    message:"song created succsessfully.",
-    song
-   })
+    const song = await songModel.create({
+        title: tags.title,
+        url: songFile.url,
+        posterUrl: posterFile.url,
+        mood
+    });
+
+    res.status(201).json({
+        message: "Song created successfully.",
+        song
+    });
 }
 
-async function getSong(req,res){
-    const {mood} = req.query
+async function getSong(req, res) {
+    const { mood } = req.query;
 
-    const song = await songModel.findOne({
-        mood,
-    })
+    if (!mood) {
+        return res.status(400).json({ message: "Mood query parameter is required" });
+    }
+
+    // Use aggregation pipeline to pick a random song for the given mood
+    const songs = await songModel.aggregate([
+        { $match: { mood } },
+        { $sample: { size: 1 } }
+    ]);
+
+    const song = songs.length > 0 ? songs[0] : null;
+
     res.status(200).json({
-        message: "song fetched successfully.",
-        song 
-    })
+        message: "Song fetched successfully.",
+        song
+    });
 }
 
-module.exports= {uploadSong, getSong}
+module.exports = { uploadSong, getSong };

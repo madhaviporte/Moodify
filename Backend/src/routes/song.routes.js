@@ -1,15 +1,11 @@
-const express = require("express")
-const upload = require("../middlewares/upload.middleware")
-const songController = require("../controllers/song.controller")
+const express = require("express");
+const upload = require("../middlewares/upload.middleware");
+const songController = require("../controllers/song.controller");
+const { authUser } = require("../middlewares/auth.middleware");
 
+const router = express.Router();
 
-const router = express.Router()
+router.post("/", authUser, upload.single("song"), songController.uploadSong);
+router.get('/', songController.getSong);
 
-
-//POST/api/songs/
-
-router.post("/", upload.single("song"), songController.uploadSong)
-
-router.get('/',songController.getSong)
-
-module.exports = router
+module.exports = router;

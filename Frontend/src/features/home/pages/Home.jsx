@@ -5,38 +5,39 @@ import { useSong } from "../hooks/useSong";
 import "./home.scss";
 
 const Home = () => {
+    const { loading, handleGetSong } = useSong();
 
-  const { handleGetSong } = useSong();
+    return (
+        <div className="home">
+            <div className="home-container">
+                <h1 className="title">
+                    Mood Based Music 🎧
+                </h1>
 
-  return (
-    <div className="home">
+                <p className="subtitle">
+                    Show your expression and let the system detect your mood to play the perfect song.
+                </p>
 
-      <div className="home-container">
+                <div className="expression-box">
+                    <FaceExpression
+                        onClick={(expression) => {
+                            handleGetSong({ mood: expression });
+                        }}
+                    />
+                </div>
 
-        <h1 className="title">
-          Mood Based Music 🎧
-        </h1>
+                {loading && (
+                    <p style={{ color: "#dd4200", fontSize: "0.9rem", marginTop: "0.5rem" }}>
+                        Fetching song for your mood...
+                    </p>
+                )}
 
-        <p className="subtitle">
-          Show your expression and let the system detect your mood to play the perfect song.
-        </p>
-
-        <div className="expression-box">
-          <FaceExpression
-            onClick={(expression) => {
-              handleGetSong({ mood: expression });
-            }}
-          />
+                <div className="player-box">
+                    <Player />
+                </div>
+            </div>
         </div>
-
-        <div className="player-box">
-          <Player />
-        </div>
-
-      </div>
-
-    </div>
-  );
+    );
 };
 
 export default Home;

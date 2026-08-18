@@ -6,7 +6,7 @@ import {
 // =======================
 // INIT CAMERA + MODEL
 // =======================
-export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
+export const init = async ({ landmarkerRef, videoRef, streamRef, setCameraError }) => {
     try {
         const vision = await FilesetResolver.forVisionTasks(
             "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
@@ -41,12 +41,21 @@ export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
 
     } catch (err) {
         console.error("INIT ERROR:", err);
+        if (setCameraError) {
+            if (err.name === "NotAllowedError" || err.message?.includes("Permission")) {
+                setCameraError("Camera access was denied. Please allow camera permissions and reload.");
+            } else if (err.name === "NotFoundError") {
+                setCameraError("No camera found on this device.");
+            } else {
+                setCameraError("Failed to initialize camera: " + err.message);
+            }
+        }
     }
 };
 
 
 // =======================
-// DETECT EMOTION (FIXED)
+// DETECT EMOTION
 // =======================
 export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
     if (!landmarkerRef.current || !videoRef.current) return "Neutral";
@@ -83,13 +92,11 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
     if (smileLeft > 0.35 && smileRight > 0.35) {
         expression = "happy";
     }
-
     // 😮 SURPRISED
     else if (jawOpen > 0.4 && browUp > 0.2) {
         expression = "surprised";
     }
-
-    // 😢 SAD (FIXED LOGIC)
+    // 😢 SAD
     else if (frownLeft > 0.15 || frownRight > 0.15) {
         expression = "sad";
     }

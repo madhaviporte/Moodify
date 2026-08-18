@@ -46,6 +46,7 @@ $text-sub: #cbd5f5;
 
     .player-box {
       margin-top: 1rem;
+      padding-bottom: 80px; /* Prevent player overlap */
     }
   }
 }

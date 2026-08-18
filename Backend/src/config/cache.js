@@ -1,17 +1,29 @@
 const Redis = require("ioredis").default
 
-const redis = new Redis({
+const redisOptions = {
     host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD
-})
+    password: process.env.REDIS_PASSWORD,
+    maxRetriesPerRequest: 3,
+    retryStrategy(times) {
+        if (times > 3) return null;
+        return Math.min(times * 200, 2000);
+    },
+    lazyConnect: true
+};
 
-redis.on("connect", ()=>{
-    console.log("server is connected to redis");
-})
+if (process.env.REDIS_TLS === "true") {
+    redisOptions.tls = {};
+}
 
-redis.on("error", (err)=>{
-    console.log(err);  
-})
+const redis = new Redis(redisOptions);
 
-module.exports = redis
+redis.on("connect", () => {
+    console.log("Server is connected to Redis");
+});
+
+redis.on("error", (err) => {
+    console.error("Redis error:", err.message);
+});
+
+module.exports = redis;
