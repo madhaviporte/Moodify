@@ -1,0 +1,7 @@
+# Local song library
+songs/
+
+# Audio files
+*.mp3
+*.wav
+*.flac
