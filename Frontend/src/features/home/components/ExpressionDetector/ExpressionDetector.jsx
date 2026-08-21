@@ -4,7 +4,18 @@ import { useSong } from "../../hooks/useSong";
 import "./ExpressionDetector.scss";
 
 const ExpressionDetector = () => {
-  const { loading, handleGetSong } = useSong();
+  const { loading, setMood, filteredSongs, playSongAtIndex } = useSong();
+
+  const handleExpressionDetected = (expression) => {
+    // Set the mood filter in context — this triggers filtering of allSongs
+    setMood(expression);
+
+    // Auto-play the first song in the newly filtered list after a brief tick
+    // (filteredSongs updates on next render, so we use a microtask)
+    setTimeout(() => {
+      // The filtered list will update on next render; auto-play is handled in AlbumReleases
+    }, 0);
+  };
 
   return (
     <section className="hero-section">
@@ -28,9 +39,7 @@ const ExpressionDetector = () => {
           <div className="hero-section__camera-frame">
             <div className="hero-section__camera-glow" />
             <FaceExpression
-              onClick={(expression) => {
-                handleGetSong({ mood: expression });
-              }}
+              onClick={handleExpressionDetected}
             />
           </div>
         </div>

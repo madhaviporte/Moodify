@@ -53,11 +53,16 @@ async function uploadSong(req, res) {
 async function getSong(req, res) {
     const { mood } = req.query;
 
+    // No mood specified: return all songs
     if (!mood) {
-        return res.status(400).json({ message: "Mood query parameter is required" });
+        const songs = await songModel.find();
+        return res.status(200).json({
+            message: "Songs fetched successfully.",
+            songs
+        });
     }
 
-    // Use aggregation pipeline to pick a random song for the given mood
+    // Mood specified: return one random song for that mood (existing behavior)
     const songs = await songModel.aggregate([
         { $match: { mood } },
         { $sample: { size: 1 } }

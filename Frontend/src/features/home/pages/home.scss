@@ -1,2 +1,7 @@
 /* Home page specific styles */
 /* Layout styles are in Layout.scss */
+
+/* When expression is hidden (song playing), adjust spacing */
+.home-expression-hidden {
+  padding-top: 8px;
+}

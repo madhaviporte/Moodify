@@ -3,7 +3,7 @@ import { useSong } from "../hooks/useSong";
 import "../pages/page-shared.scss";
 
 const MyMusic = () => {
-  const { song } = useSong();
+  const { song, allSongs, recentlyPlayed, playSong } = useSong();
 
   return (
     <div className="page">
@@ -18,21 +18,28 @@ const MyMusic = () => {
       <div className="page__section">
         <h2 className="page__section-title">Recently Played</h2>
 
-        {song ? (
+        {recentlyPlayed.length > 0 ? (
           <div className="page__grid">
-            <div className="music-card">
-              <div className="music-card__artwork">
-                <img
-                  src={song.posterUrl}
-                  alt={song.title}
-                  className="music-card__img"
-                />
+            {recentlyPlayed.map((s) => (
+              <div
+                key={s._id || s.url}
+                className="music-card"
+                onClick={() => playSong(s)}
+              >
+                <div className="music-card__artwork">
+                  <img
+                    src={s.posterUrl}
+                    alt={s.title}
+                    className="music-card__img"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="music-card__info">
+                  <h3 className="music-card__title">{s.title}</h3>
+                  <p className="music-card__mood">{s.mood || "Unknown"}</p>
+                </div>
               </div>
-              <div className="music-card__info">
-                <h3 className="music-card__title">{song.title}</h3>
-                <p className="music-card__mood">{song.mood}</p>
-              </div>
-            </div>
+            ))}
           </div>
         ) : (
           <div className="page__empty">
@@ -44,22 +51,45 @@ const MyMusic = () => {
               </svg>
             </div>
             <p className="page__empty-text">
-              No music played yet. Go to Home and detect your mood to get started!
+              No recently played songs yet. Go to Home and detect your mood to get started!
             </p>
           </div>
         )}
       </div>
 
-      {/* Mood History */}
+      {/* All Songs */}
       <div className="page__section">
-        <h2 className="page__section-title">All Songs by Mood</h2>
+        <h2 className="page__section-title">All Songs</h2>
         <p className="page__subtitle">
-          Songs you've discovered through mood detection will appear here.
+          Complete library — {allSongs.length} songs available.
         </p>
-        {!song && (
-          <div className="page__empty" style={{ paddingTop: "20px" }}>
+        {allSongs.length > 0 ? (
+          <div className="page__grid">
+            {allSongs.map((s) => (
+              <div
+                key={s._id || s.url}
+                className={`music-card ${song && (song._id === s._id || song.url === s.url) ? "music-card--active" : ""}`}
+                onClick={() => playSong(s)}
+              >
+                <div className="music-card__artwork">
+                  <img
+                    src={s.posterUrl}
+                    alt={s.title}
+                    className="music-card__img"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="music-card__info">
+                  <h3 className="music-card__title">{s.title}</h3>
+                  <p className="music-card__mood">{s.mood || "Unknown"}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="page__empty">
             <p className="page__empty-text">
-              Detect your expression on the Home page to discover mood-matched music.
+              No songs available yet.
             </p>
           </div>
         )}

@@ -17,7 +17,7 @@
   }
 
   &__title {
-    font-size: clamp(1.75rem, 3.5vw, 2.8rem);
+    font-size: clamp(1.75rem, 3.5vw, 3.2rem);
     font-weight: 800;
     color: #fff;
     line-height: 1.15;
@@ -33,7 +33,7 @@
   }
 
   &__subtitle {
-    font-size: clamp(0.88rem, 1.2vw, 1.05rem);
+    font-size: clamp(0.88rem, 1.3vw, 1.15rem);
     color: rgba(255, 255, 255, 0.5);
     line-height: 1.6;
     max-width: 420px;

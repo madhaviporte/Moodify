@@ -5,3 +5,6 @@ songs/
 *.mp3
 *.wav
 *.flac
+
+# Generated song posters
+posters/

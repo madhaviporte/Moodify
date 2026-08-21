@@ -21,9 +21,9 @@ const Layout = () => {
         <div className="app-layout__content">
           <Outlet />
         </div>
-      </main>
 
-      <Player />
+        <Player />
+      </main>
     </div>
   );
 };

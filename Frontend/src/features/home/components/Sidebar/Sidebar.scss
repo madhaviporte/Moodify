@@ -43,7 +43,7 @@
   }
 
   &__brand-name {
-    font-size: 1.25rem;
+    font-size: clamp(1.15rem, 1.5vw, 1.4rem);
     font-weight: 700;
     color: #fff;
     letter-spacing: -0.02em;
@@ -65,7 +65,7 @@
     border-radius: 12px;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: clamp(0.85rem, 1vw, 1rem);
     font-weight: 500;
     transition: all 0.2s ease;
     cursor: pointer;
@@ -127,7 +127,7 @@
   }
 
   &__username {
-    font-size: 0.82rem;
+    font-size: clamp(0.78rem, 0.9vw, 0.92rem);
     font-weight: 600;
     color: #fff;
     white-space: nowrap;
@@ -136,7 +136,7 @@
   }
 
   &__email {
-    font-size: 0.7rem;
+    font-size: clamp(0.66rem, 0.8vw, 0.8rem);
     color: rgba(255, 255, 255, 0.35);
     white-space: nowrap;
     overflow: hidden;

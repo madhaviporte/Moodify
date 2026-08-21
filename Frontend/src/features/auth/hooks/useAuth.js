@@ -1,5 +1,5 @@
 import { login, register, getMe, logout } from "../services/auth.api";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../auth.context";
 
 export const useAuth = () => {
@@ -40,7 +40,6 @@ export const useAuth = () => {
             const data = await getMe();
             setUser(data.user);
         } catch {
-            // No valid session — user stays null, loading will be set to false below
             setUser(null);
         } finally {
             setLoading(false);
@@ -58,10 +57,6 @@ export const useAuth = () => {
             setLoading(false);
         }
     }
-
-    useEffect(() => {
-        handleGetMe();
-    }, []);
 
     return {
         user, loading, handleLogin, handleRegister, handleLogout, handleGetMe

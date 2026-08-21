@@ -1,8 +1,11 @@
 import React from "react";
 
-const AlbumCard = ({ song }) => {
+const AlbumCard = ({ song, isActive, onClick }) => {
   return (
-    <div className="album-card">
+    <div
+      className={`album-card ${isActive ? "album-card--active" : ""}`}
+      onClick={onClick}
+    >
       <div className="album-card__artwork">
         <img
           src={song.posterUrl}
@@ -11,11 +14,17 @@ const AlbumCard = ({ song }) => {
           loading="lazy"
         />
         <div className="album-card__overlay">
-          <button className="album-card__play-btn" title={`Play ${song.title}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-              <path d="M8 5.14v14l11-7-11-7z" />
-            </svg>
-          </button>
+          {isActive ? (
+            <div className="album-card__playing-indicator">
+              <span /><span /><span />
+            </div>
+          ) : (
+            <button className="album-card__play-btn" title={`Play ${song.title}`}>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                <path d="M8 5.14v14l11-7-11-7z" />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
       <div className="album-card__info">

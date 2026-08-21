@@ -34,6 +34,14 @@ const songRoutes = require("./routes/song.routes");
 app.use("/api/auth", authRoutes);
 app.use("/api/songs", songRoutes);
 
+// Serve local song files from the root songs/ folder
+const songsDir = path.join(__dirname, "../../songs");
+app.use("/songs", express.static(songsDir));
+
+// Serve generated poster artwork
+const postersDir = path.join(__dirname, "../../posters");
+app.use("/posters", express.static(postersDir));
+
 // Production: serve static files and SPA fallback AFTER API routes
 if (!isDev) {
   app.use(express.static(path.join(__dirname, "../public")));

@@ -1,8 +1,4 @@
 .player {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: linear-gradient(180deg, rgba(16, 8, 30, 0.95), rgba(10, 4, 20, 0.98));
     backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -12,6 +8,8 @@
     align-items: center;
     gap: 24px;
     box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+    width: 100%;
 
     /* ── Song Info ── */
     &__info {
@@ -37,7 +35,7 @@
     }
 
     &__title {
-        font-size: 0.9rem;
+        font-size: clamp(0.85rem, 1vw, 1.05rem);
         font-weight: 600;
         color: #f1f1f1;
         white-space: nowrap;
@@ -47,7 +45,7 @@
     }
 
     &__mood {
-        font-size: 0.72rem;
+        font-size: clamp(0.68rem, 0.8vw, 0.82rem);
         text-transform: capitalize;
         color: #dd4200;
         background: rgba(221, 66, 0, 0.12);
@@ -67,7 +65,7 @@
     }
 
     &__time {
-        font-size: 0.75rem;
+        font-size: clamp(0.7rem, 0.8vw, 0.85rem);
         color: #888;
         white-space: nowrap;
         font-variant-numeric: tabular-nums;
@@ -113,10 +111,28 @@
         pointer-events: none;
     }
 
+    /* ── Center (controls + progress) ── */
+    &__center {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* ── Right (speed + volume) ── */
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+    }
+
     /* ── Controls ── */
     &__controls {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         flex: 0 0 auto;
     }
@@ -132,7 +148,7 @@
         gap: 4px;
         padding: 8px;
         border-radius: 8px;
-        font-size: 0.82rem;
+        font-size: clamp(0.78rem, 0.9vw, 0.95rem);
         font-weight: 600;
         transition: color 0.15s, background 0.15s;
 
@@ -152,6 +168,25 @@
             &:hover {
                 background: #ff5215;
                 color: #fff;
+            }
+        }
+
+                &--nav {
+            color: #aaa;
+            padding: 6px;
+
+            &:hover {
+                color: #fff;
+            }
+
+            &:disabled {
+                opacity: 0.3;
+                cursor: not-allowed;
+
+                &:hover {
+                    color: #aaa;
+                    background: none;
+                }
             }
         }
 
@@ -275,11 +310,33 @@
     }
 }
 
+/* Large screens */
+@media (min-width: 1440px) {
+    .player {
+        padding: 14px 32px;
+        gap: 28px;
+
+        &__poster {
+            width: 56px;
+            height: 56px;
+        }
+
+        &__btn--play {
+            width: 52px;
+            height: 52px;
+        }
+
+        &__volume-slider {
+            width: 100px;
+        }
+    }
+}
+
 /* Responsive: stack on smaller screens */
 @media (max-width: 640px) {
     .player {
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 8px;
         padding: 10px 16px;
 
         &__info {
@@ -287,9 +344,33 @@
             flex: 1;
         }
 
-        &__progress-wrap {
+        &__center {
             order: 3;
             width: 100%;
+        }
+
+        &__right {
+            order: 2;
+        }
+
+        &__controls {
+            gap: 4px;
+        }
+
+        &__volume-slider {
+            width: 60px;
+        }
+    }
+}
+
+/* Tablet */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .player {
+        padding: 12px 16px;
+        gap: 16px;
+
+        &__info {
+            min-width: 160px;
         }
 
         &__volume-slider {
