@@ -2,7 +2,8 @@ import { createContext, useState, useMemo, useEffect } from "react";
 import { getAllSongs } from "./service/song.api";
 
 const RECENTLY_PLAYED_KEY = "moodify_recently_played";
-const MAX_RECENT = 20;
+const CURRENT_SONG_KEY = "moodify_current_song";
+const MAX_RECENT = 5;
 
 function loadRecentlyPlayed() {
     try {
@@ -19,6 +20,25 @@ function saveRecentlyPlayed(list) {
     } catch { /* ignore quota errors */ }
 }
 
+function loadCurrentSong() {
+    try {
+        const raw = localStorage.getItem(CURRENT_SONG_KEY);
+        return raw ? JSON.parse(raw) : null;
+    } catch {
+        return null;
+    }
+}
+
+function saveCurrentSong(song) {
+    try {
+        if (song) {
+            localStorage.setItem(CURRENT_SONG_KEY, JSON.stringify(song));
+        } else {
+            localStorage.removeItem(CURRENT_SONG_KEY);
+        }
+    } catch { /* ignore quota errors */ }
+}
+
 export const SongContext = createContext();
 
 export const SongContextProvider = ({ children }) => {
@@ -32,8 +52,12 @@ export const SongContextProvider = ({ children }) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     // Currently playing song + index in the filtered list
-    const [currentSong, setCurrentSong] = useState(null);
+    // Restore from localStorage so the player survives page refresh
+    const [currentSong, setCurrentSong] = useState(loadCurrentSong);
     const [currentIndex, setCurrentIndex] = useState(-1);
+
+    // Whether audio is currently playing (lifted from Player so AlbumCard visualizer can use it)
+    const [isPlaying, setIsPlaying] = useState(false);
 
     // Auto-play flag: set to true to tell Player to auto-play the next song
     const [autoPlay, setAutoPlay] = useState(false);
@@ -44,6 +68,17 @@ export const SongContextProvider = ({ children }) => {
 
     // Recently played songs (persisted in localStorage)
     const [recentlyPlayed, setRecentlyPlayed] = useState(loadRecentlyPlayed);
+
+    // Reset playback state on mount so UI doesn't show stale "Playing" after refresh
+    useEffect(() => {
+        setIsPlaying(false);
+        setAutoPlay(false);
+    }, []);
+
+    // Persist currentSong to localStorage whenever it changes
+    useEffect(() => {
+        saveCurrentSong(currentSong);
+    }, [currentSong]);
 
     // Fetch all songs once on mount so every page has them
     useEffect(() => {
@@ -89,12 +124,14 @@ export const SongContextProvider = ({ children }) => {
         return () => { cancelled = true; };
     }, []);
 
-    // Add song to recently played (dedup, most-recent first, max 20)
+    // Add song to recently played (dedup, most-recent first, max 5)
     function addToRecentlyPlayed(song) {
         if (!song) return;
         const entry = {
             _id: song._id,
             title: song.title,
+            artist: song.artist || "",
+            album: song.album || "",
             mood: song.mood,
             posterUrl: song.posterUrl,
             url: song.url,
@@ -108,6 +145,15 @@ export const SongContextProvider = ({ children }) => {
             saveRecentlyPlayed(updated);
             return updated;
         });
+    }
+
+    // Clear the current player (X button)
+    // Setting currentSong to null removes the <audio> element from DOM, stopping playback
+    function clearCurrentSong() {
+        setCurrentSong(null);
+        setCurrentIndex(-1);
+        setIsPlaying(false);
+        setAutoPlay(false);
     }
 
     // Legacy: keep "song" working for backward compat (points to currentSong)
@@ -158,6 +204,10 @@ export const SongContextProvider = ({ children }) => {
                 currentIndex,
                 setCurrentIndex,
 
+                // Playback state (lifted from Player)
+                isPlaying,
+                setIsPlaying,
+
                 // Auto-play
                 autoPlay,
                 setAutoPlay,
@@ -165,6 +215,9 @@ export const SongContextProvider = ({ children }) => {
                 // Recently played
                 recentlyPlayed,
                 addToRecentlyPlayed,
+
+                // Close player
+                clearCurrentSong,
 
                 // Derived
                 filteredSongs,

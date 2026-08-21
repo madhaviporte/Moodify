@@ -18,6 +18,7 @@ const AlbumReleases = () => {
     currentMood,
     searchQuery,
     currentSong,
+    isPlaying,
     songsLoading,
     playSong,
     playSongAtIndex,
@@ -95,6 +96,7 @@ const AlbumReleases = () => {
             key={song._id || song.url}
             song={song}
             isActive={currentSong && (currentSong._id === song._id || currentSong.url === song.url)}
+            isPlaying={isPlaying}
             onClick={() => playSong(song)}
           />
         ))}

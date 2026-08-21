@@ -49,6 +49,14 @@
     overflow-y: auto;
     /* Smooth scroll for content */
     scroll-behavior: smooth;
+
+    /* Hide scrollbar while keeping scroll functional */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
   }
 }
 

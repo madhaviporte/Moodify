@@ -1,6 +1,7 @@
 import React from "react";
 import { useSong } from "../hooks/useSong";
 import ExpressionDetector from "../components/ExpressionDetector/ExpressionDetector";
+import NowPlaying from "../components/NowPlaying/NowPlaying";
 import AlbumReleases from "../components/AlbumReleases/AlbumReleases";
 import "./home.scss";
 
@@ -9,8 +10,8 @@ const Home = () => {
 
     return (
         <>
-            {/* Hide expression detector when a song is playing to reclaim space */}
-            {!currentSong && <ExpressionDetector />}
+            {/* Show Now Playing when a song is active, otherwise show expression detector */}
+            {currentSong ? <NowPlaying /> : <ExpressionDetector />}
             <AlbumReleases />
         </>
     );

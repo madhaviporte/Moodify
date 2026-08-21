@@ -22,13 +22,14 @@ const Player = () => {
         prevSong,
         autoPlay,
         setAutoPlay,
+        isPlaying,
+        setIsPlaying,
         addToRecentlyPlayed,
     } = useSong();
 
     const audioRef = useRef(null);
     const progressRef = useRef(null);
 
-    const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [speed, setSpeed] = useState(1);
@@ -82,6 +83,16 @@ const Player = () => {
             }).catch(() => {});
         }
         setIsPlaying(!isPlaying);
+    };
+
+    // Track when audio actually starts playing (covers autoplay and browser interaction)
+    const handlePlay = () => {
+        setIsPlaying(true);
+        if (currentSong) addToRecentlyPlayed(currentSong);
+    };
+
+    const handlePause = () => {
+        setIsPlaying(false);
     };
 
     const skip = (secs) => {
@@ -151,6 +162,8 @@ const Player = () => {
                     onTimeUpdate={handleTimeUpdate}
                     onLoadedMetadata={handleLoadedMetadata}
                     onEnded={handleSongEnd}
+                    onPlay={handlePlay}
+                    onPause={handlePause}
                 />
             )}
 

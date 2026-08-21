@@ -1,6 +1,6 @@
 import React from "react";
 
-const AlbumCard = ({ song, isActive, onClick }) => {
+const AlbumCard = ({ song, isActive, isPlaying, onClick }) => {
   return (
     <div
       className={`album-card ${isActive ? "album-card--active" : ""}`}
@@ -14,7 +14,7 @@ const AlbumCard = ({ song, isActive, onClick }) => {
           loading="lazy"
         />
         <div className="album-card__overlay">
-          {isActive ? (
+          {isActive && isPlaying ? (
             <div className="album-card__playing-indicator">
               <span /><span /><span />
             </div>
