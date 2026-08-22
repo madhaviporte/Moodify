@@ -7,11 +7,11 @@ export default defineConfig({
   server: {
     proxy: {
       // Forward API calls to backend
-      '/api': 'http://localhost:3000',
+      '/api': 'http://localhost:8000',
       // Forward static song files to backend
-      '/songs': 'http://localhost:3000',
+      '/songs': 'http://localhost:8000',
       // Forward poster artwork to backend
-      '/posters': 'http://localhost:3000',
+      '/posters': 'http://localhost:8000',
     },
   },
 })

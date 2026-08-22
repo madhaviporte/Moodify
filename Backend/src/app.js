@@ -18,14 +18,21 @@ app.use((req, res, next) => {
 
 const isDev = process.env.NODE_ENV !== "production";
 
-if (isDev) {
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-      credentials: true,
-    })
-  );
-}
+const allowedOrigins = isDev
+  ? ["http://localhost:5173"]
+  : [process.env.FRONTEND_URL].filter(Boolean);
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (mobile apps, curl, server-to-server)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 
 // Routes — MUST be registered before the production SPA catch-all
 const authRoutes = require("./routes/auth.routes");
@@ -33,6 +40,11 @@ const songRoutes = require("./routes/song.routes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/songs", songRoutes);
+
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 // Serve local song files from the root songs/ folder
 const songsDir = path.join(__dirname, "../../songs");
