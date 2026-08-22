@@ -12,9 +12,12 @@ const AuthVisual = ({ brand = "Moodify", tagline, imageSrc }) => {
       {imageSrc && (
         <img
           src={imageSrc}
+          srcSet={`${imageSrc} 1x, ${imageSrc.replace(/w=\d+/, 'w=800')} 2x`}
+          sizes="(min-width: 1024px) 55vw, 100vw"
           alt=""
           className="auth-visual__image"
           loading="eager"
+          decoding="async"
           draggable={false}
         />
       )}

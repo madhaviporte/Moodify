@@ -59,17 +59,20 @@ const Register = () => {
             <AuthVisual
                 brand="Moodify"
                 tagline="Your mood. Your music. Your world."
-                imageSrc="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG11c2ljfGVufDB8fDB8fHww"
+                imageSrc="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG11c2ljfGVufDB8fDB8fHww"
             />
 
             <div className="cursor-glow" />
 
             <div className="auth-form-area auth-form-area--register">
                 <img
-                    src="https://images.unsplash.com/photo-1547357812-4a336d835928?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljJTIwbWVufGVufDB8fDB8fHww"
+                    src="https://images.unsplash.com/photo-1547357812-4a336d835928?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljJTIwbWVufGVufDB8fDB8fHww"
+                    srcSet="https://images.unsplash.com/photo-1547357812-4a336d835928?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljJTIwbWVufGVufDB8fDB8fHww 1x, https://images.unsplash.com/photo-1547357812-4a336d835928?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljJTIwbWVufGVufDB8fDB8fHww 2x"
+                    sizes="(min-width: 1024px) 23vw, 100vw"
                     alt=""
                     className="auth-form-area__image"
                     loading="eager"
+                    decoding="async"
                     draggable={false}
                 />
                 <div className="auth-register-panel">

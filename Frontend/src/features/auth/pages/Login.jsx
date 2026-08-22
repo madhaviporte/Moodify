@@ -50,7 +50,7 @@ const Login = () => {
       <AuthVisual
         brand="Moodify"
         tagline="Music that matches your mood."
-        imageSrc="https://plus.unsplash.com/premium_photo-1677446657652-144c8c6d2ef8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bXVzaWMlMjBkYXJrJTIwdGhlbWV8ZW58MHx8MHx8fDA%3D"
+        imageSrc="https://plus.unsplash.com/premium_photo-1677446657652-144c8c6d2ef8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bXVzaWMlMjBkYXJrJTIwdGhlbWV8ZW58MHx8MHx8fDA%3D"
       />
 
       {/* Cursor glow */}
@@ -59,10 +59,13 @@ const Login = () => {
       {/* RIGHT — Login panel */}
       <div className="auth-form-area auth-form-area--login">
         <img
-          src="https://plus.unsplash.com/premium_photo-1681335986095-5a9585e77246?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fG11c2ljfGVufDB8fDB8fHww"
+          src="https://plus.unsplash.com/premium_photo-1681335986095-5a9585e77246?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fG11c2ljfGVufDB8fDB8fHww"
+          srcSet="https://plus.unsplash.com/premium_photo-1681335986095-5a9585e77246?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fG11c2ljfGVufDB8fDB8fHww 1x, https://plus.unsplash.com/premium_photo-1681335986095-5a9585e77246?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fG11c2ljfGVufDB8fDB8fHww 2x"
+          sizes="(min-width: 1024px) 23vw, 100vw"
           alt=""
           className="auth-form-area__image"
           loading="eager"
+          decoding="async"
           draggable={false}
         />
         <div className="auth-login-panel">
