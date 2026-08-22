@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../style/login.scss";
 import FormGroup from "../components/FormGroup";
 import AuthVisual from "../components/AuthVisual";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router";
 import useParallax from "../hooks/useParallax";
@@ -23,8 +23,13 @@ const LockIcon = (
 );
 
 const Login = () => {
-  const { loading, handleLogin } = useAuth();
+  const { user, loading, handleLogin } = useAuth();
   const navigate = useNavigate();
+
+  // If already authenticated, redirect to home without creating a history entry
+  if (!loading && user) {
+    return <Navigate to="/" replace />;
+  }
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +40,7 @@ const Login = () => {
     setError("");
     try {
       await handleLogin({ email, password });
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (err) {
       setError(err.message);
     }

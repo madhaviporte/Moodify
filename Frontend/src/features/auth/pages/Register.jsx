@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "../style/register.scss"
 import FormGroup from '../components/FormGroup'
 import AuthVisual from '../components/AuthVisual'
-import { Link } from 'react-router'
+import { Link, Navigate } from 'react-router'
 import { useAuth } from '../hooks/useAuth'
 import { useNavigate } from 'react-router'
 import useParallax from '../hooks/useParallax'
@@ -35,7 +35,12 @@ const Register = () => {
     const [error, setError] = useState("")
 
     const navigate = useNavigate();
-    const { loading, handleRegister } = useAuth();
+    const { user, loading, handleRegister } = useAuth();
+
+    // If already authenticated, redirect to home without creating a history entry
+    if (!loading && user) {
+        return <Navigate to="/" replace />;
+    }
     const pageRef = useParallax();
 
     async function handleSubmit(e) {
@@ -43,7 +48,7 @@ const Register = () => {
         setError("");
         try {
             await handleRegister({ username, password, email });
-            navigate('/');
+            navigate('/', { replace: true });
         } catch (err) {
             setError(err.message);
         }
