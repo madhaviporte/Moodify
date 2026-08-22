@@ -67,6 +67,15 @@ const Sidebar = ({ isOpen, onClose }) => {
       {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
 
       <aside className={`sidebar ${isOpen ? "sidebar--open" : ""}`}>
+        {/* Decorative image */}
+        <img
+          src="https://plus.unsplash.com/premium_photo-1677589349982-287463c44c6e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bXVzaWMlMjBkYXJrJTIwdGhlbWV8ZW58MHx8MHx8fDA%3D"
+          alt=""
+          className="sidebar__image"
+          loading="eager"
+          draggable={false}
+        />
+
         {/* Branding */}
         <div className="sidebar__brand">
           <div className="sidebar__logo">

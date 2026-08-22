@@ -116,20 +116,19 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   padding: clamp(1.5rem, 4vw, 5rem);
   flex-shrink: 0;
 
-  // Cinematic gradient background
-  background:
-    radial-gradient(ellipse at 50% 30%, rgba(124, 58, 237, 0.25) 0%, transparent 55%),
-    radial-gradient(ellipse at 20% 70%, rgba(255, 107, 53, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 60%, rgba(224, 64, 251, 0.18) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 90%, rgba(255, 107, 53, 0.15) 0%, transparent 40%),
-    linear-gradient(180deg, #0d0618 0%, #15082a 30%, #1a0a2e 60%, #12081f 100%);
+  // Transparent base so image shows through
+  background: transparent;
 
-  // Dark overlay gradient for depth
+  // Light tinted overlay to preserve Moodify color feel
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.4) 100%);
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 70%, rgba(255, 107, 53, 0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 60%, rgba(224, 64, 251, 0.08) 0%, transparent 50%),
+      linear-gradient(180deg, rgba(13,6,24,0.25) 0%, rgba(21,8,42,0.15) 40%, rgba(0,0,0,0.3) 100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -142,9 +141,22 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     right: 0;
     bottom: 0;
     width: clamp(40px, 6vw, 100px);
-    background: linear-gradient(90deg, transparent, rgba(10, 10, 15, 0.6));
+    background: linear-gradient(90deg, transparent, rgba(10, 10, 15, 0.35));
     z-index: 2;
     pointer-events: none;
+  }
+
+  // Background image
+  &__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
   }
 }
 
@@ -304,7 +316,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   padding: 2rem;
   position: relative;
   z-index: 1;
-  background: $gradient-bg;
+  background: rgba(10, 8, 20, 0.3);
   flex-shrink: 0;
 
   // Full-height panel (login & register)
@@ -324,8 +336,25 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     background: $glow-purple;
     filter: blur(100px);
     top: 10%; right: -50px;
-    opacity: 0.3;
+    opacity: 0.12;
     pointer-events: none;
+  }
+
+  // Right-side decorative image
+  &__image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.6;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    mask-image: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 85%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 85%);
   }
 }
 
@@ -568,6 +597,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   justify-content: center;
   padding: clamp(1.5rem, 4vw, 5rem);
   position: relative;
+  z-index: 1;
   animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
@@ -697,6 +727,13 @@ $glow-orange: rgba(255, 107, 53, 0.3);
       justify-content: center;
       padding: 2rem 1.5rem;
     }
+
+    &__image {
+      width: 100%;
+      opacity: 0.45;
+      mask-image: linear-gradient(to left, rgba(0,0,0,0.7) 0%, transparent 75%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.7) 0%, transparent 75%);
+    }
   }
 
   .auth-login-panel,
@@ -748,6 +785,11 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     &--login {
       padding: 1.5rem 1rem;
     }
+
+    &__image {
+      width: 100%;
+      opacity: 0.35;
+    }
   }
 
   .auth-login-panel,
@@ -788,6 +830,11 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     &--register,
     &--login {
       padding: 1.25rem 1rem;
+    }
+
+    &__image {
+      width: 80%;
+      opacity: 0.25;
     }
   }
 
@@ -870,6 +917,11 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     &--login {
       padding: 1rem 0.75rem;
     }
+
+    &__image {
+      width: 70%;
+      opacity: 0.18;
+    }
   }
 
   .auth-card {
@@ -933,6 +985,11 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     &--register,
     &--login {
       padding: 0.75rem 0.6rem;
+    }
+
+    &__image {
+      width: 60%;
+      opacity: 0.12;
     }
   }
 

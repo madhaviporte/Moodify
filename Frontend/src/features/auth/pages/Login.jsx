@@ -50,6 +50,7 @@ const Login = () => {
       <AuthVisual
         brand="Moodify"
         tagline="Music that matches your mood."
+        imageSrc="https://plus.unsplash.com/premium_photo-1677446657652-144c8c6d2ef8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bXVzaWMlMjBkYXJrJTIwdGhlbWV8ZW58MHx8MHx8fDA%3D"
       />
 
       {/* Cursor glow */}
@@ -57,6 +58,13 @@ const Login = () => {
 
       {/* RIGHT — Login panel */}
       <div className="auth-form-area auth-form-area--login">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1681335986095-5a9585e77246?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fG11c2ljfGVufDB8fDB8fHww"
+          alt=""
+          className="auth-form-area__image"
+          loading="eager"
+          draggable={false}
+        />
         <div className="auth-login-panel">
           <div className="auth-header auth-header--login">
             <h1>Welcome <span className="gradient-text">back</span></h1>

@@ -5,9 +5,19 @@ import React from "react";
  * Left-side full-height panel with gradient scene, floating notes, particles,
  * animated equalizer, brand text, and bottom waveform.
  */
-const AuthVisual = ({ brand = "Moodify", tagline }) => {
+const AuthVisual = ({ brand = "Moodify", tagline, imageSrc }) => {
   return (
     <div className="auth-visual">
+      {/* Background image */}
+      {imageSrc && (
+        <img
+          src={imageSrc}
+          alt=""
+          className="auth-visual__image"
+          loading="eager"
+          draggable={false}
+        />
+      )}
       {/* Ambient glow orbs */}
       <div className="visual-orb visual-orb--1" />
       <div className="visual-orb visual-orb--2" />
