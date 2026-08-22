@@ -87,7 +87,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 // ============================================
 .auth-page {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   background: $gradient-bg;
   overflow-x: hidden;
@@ -108,7 +108,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 .auth-visual {
   position: relative;
   width: 55%;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -297,7 +297,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 // ============================================
 .auth-form-area {
   width: 45%;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -364,7 +364,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   margin-bottom: clamp(1.2rem, 2vw, 2.5rem);
 
   h1 {
-    font-size: clamp(1.3rem, 2vw + 0.3rem, 2rem);
+    font-size: clamp(28px, 4vw, 42px);
     font-weight: 700;
     color: $text-primary;
     margin-bottom: 0.35rem;
@@ -372,7 +372,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   }
 
   p {
-    font-size: clamp(0.82rem, 0.9vw, 1rem);
+    font-size: clamp(15px, 1.5vw, 18px);
     color: $text-secondary;
   }
 }
@@ -391,7 +391,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     gap: 0.35rem;
 
     label {
-      font-size: clamp(0.75rem, 0.85vw, 0.9rem);
+      font-size: clamp(14px, 1vw, 16px);
       font-weight: 500;
       color: $text-secondary;
       letter-spacing: 0.03em;
@@ -420,12 +420,13 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 
   input {
     width: 100%;
+    min-height: 48px;
     padding: clamp(0.7rem, 1vw, 1rem) 1rem clamp(0.7rem, 1vw, 1rem) 2.75rem;
     background: $input-bg;
     border: 1.5px solid $input-border;
     border-radius: 12px;
     color: $text-primary;
-    font-size: clamp(0.88rem, 1vw, 1.05rem);
+    font-size: clamp(15px, 1vw, 16px);
     outline: none;
     transition: all 0.25s ease;
 
@@ -461,7 +462,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 
 // ── Forgot password link ──
 .auth-forgot {
-  font-size: clamp(0.75rem, 0.85vw, 0.9rem);
+  font-size: clamp(13px, 1vw, 15px);
   color: $orange-accent;
   text-decoration: none;
   font-weight: 500;
@@ -483,12 +484,13 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 // ============================================
 .auth-submit {
   width: 100%;
+  min-height: 48px;
   padding: clamp(0.7rem, 1vw, 1rem) 1.5rem;
   border: none;
   border-radius: 12px;
   background: $gradient-btn;
   color: white;
-  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  font-size: clamp(15px, 1.2vw, 17px);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -531,7 +533,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   border-radius: 10px;
   padding: clamp(0.5rem, 0.8vw, 0.8rem) 1rem;
   color: #ff6b6b;
-  font-size: clamp(0.8rem, 0.9vw, 0.92rem);
+  font-size: clamp(14px, 1vw, 15px);
   animation: fadeIn 0.3s ease;
 }
 
@@ -541,7 +543,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 .auth-footer {
   margin-top: clamp(1rem, 1.5vw, 2rem);
   text-align: center;
-  font-size: clamp(0.82rem, 0.9vw, 0.95rem);
+  font-size: clamp(14px, 1.2vw, 15px);
   color: $text-secondary;
 
   a {
@@ -560,7 +562,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 .auth-login-panel,
 .auth-register-panel {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -583,14 +585,14 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   margin-bottom: clamp(1.5rem, 3vw, 3rem);
 
   h1 {
-    font-size: clamp(1.4rem, 2.5vw + 0.5rem, 3rem);
+    font-size: clamp(28px, 4vw, 42px);
     font-weight: 800;
     letter-spacing: -0.03em;
     margin-bottom: 0.5rem;
   }
 
   p {
-    font-size: clamp(0.85rem, 1vw, 1.1rem);
+    font-size: clamp(15px, 1.5vw, 18px);
     color: $text-secondary;
   }
 }
@@ -599,7 +601,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 .auth-form--login,
 .auth-form--register {
   gap: clamp(1rem, 1.5vw, 1.5rem);
-  max-width: clamp(320px, 38vw, 640px);
+  max-width: 480px;
   width: 100%;
 }
 
@@ -607,7 +609,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 .auth-submit--login,
 .auth-submit--register {
   padding: clamp(0.8rem, 1.2vw, 1.15rem) 2rem;
-  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  font-size: clamp(15px, 1.2vw, 17px);
   border-radius: 14px;
   margin-top: 0.75rem;
 }
@@ -645,14 +647,16 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 @media (max-width: 1024px) {
   .auth-page {
     flex-direction: column;
+    min-height: 100dvh;
   }
 
   .auth-visual {
     width: 100%;
-    min-height: 240px;
-    max-height: 300px;
+    min-height: 200px;
+    max-height: 260px;
     padding: 2rem;
     justify-content: center;
+    flex-shrink: 0;
 
     &::after { display: none; }
   }
@@ -675,7 +679,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 
   .auth-card {
     transform: none !important;
-    max-width: 460px;
+    max-width: 500px;
     padding: 2rem;
   }
 
@@ -683,29 +687,26 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 
   .auth-form-area {
     width: 100%;
-    min-height: auto;
+    min-height: 0;
     flex: 1;
     padding: 2rem 1.5rem;
 
     &--register,
     &--login {
-      align-items: stretch;
-      justify-content: flex-start;
-      padding: 0;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
     }
   }
 
   .auth-login-panel,
   .auth-register-panel {
+    width: 100%;
+    max-width: 500px;
     height: auto;
     min-height: 0;
-    padding: 2rem 1.5rem;
-    justify-content: flex-start;
-  }
-
-  .auth-header--login h1,
-  .auth-header--register h1 {
-    font-size: 1.7rem;
+    padding: 0;
+    justify-content: center;
   }
 
   .auth-form-area::before {
@@ -721,20 +722,57 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     min-height: 200px;
     max-height: 240px;
   }
+}
+
+// ============================================
+// Responsive — Mobile (≤767px)
+// ============================================
+@media (max-width: 767px) {
+  .auth-page {
+    min-height: 100dvh;
+  }
+
+  .auth-visual {
+    min-height: 160px;
+    max-height: 220px;
+    padding: 1.5rem;
+  }
+
+  .visual-brand { font-size: 2rem; }
+  .visual-tagline { font-size: 0.88rem; }
+
+  .auth-form-area {
+    padding: 1.5rem 1rem;
+
+    &--register,
+    &--login {
+      padding: 1.5rem 1rem;
+    }
+  }
 
   .auth-login-panel,
   .auth-register-panel {
-    padding: 2rem 3rem;
+    max-width: 520px;
+    width: 100%;
+  }
+
+  .auth-card {
+    padding: 1.5rem;
+    border-radius: 18px;
+  }
+
+  .input-wrap input {
+    font-size: 15px;
   }
 }
 
 // ============================================
-// Responsive — Mobile (≤480px)
+// Responsive — Small mobile (≤480px)
 // ============================================
 @media (max-width: 480px) {
   .auth-visual {
-    min-height: 180px;
-    max-height: 220px;
+    min-height: 140px;
+    max-height: 190px;
     padding: 1.25rem;
   }
 
@@ -746,28 +784,33 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 
   .auth-form-area {
     padding: 1.25rem 1rem;
+
+    &--register,
+    &--login {
+      padding: 1.25rem 1rem;
+    }
+  }
+
+  .auth-login-panel,
+  .auth-register-panel {
+    max-width: 100%;
+    padding: 0;
   }
 
   .auth-card {
     padding: 1.25rem;
     border-radius: 16px;
-  }
-
-  .auth-header h1 { font-size: 1.3rem; }
-
-  .auth-login-panel,
-  .auth-register-panel {
-    padding: 1.25rem 1rem;
+    max-width: calc(100% - 32px);
   }
 
   .auth-header--login h1,
   .auth-header--register h1 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .auth-header--login p,
   .auth-header--register p {
-    font-size: 0.8rem;
+    font-size: 14px;
   }
 
   .auth-form--login,
@@ -775,15 +818,27 @@ $glow-orange: rgba(255, 107, 53, 0.3);
     gap: 0.85rem;
   }
 
+  .input-wrap input {
+    font-size: 15px;
+    padding: 0.75rem 0.8rem 0.75rem 2.5rem;
+    min-height: 46px;
+  }
+
   .auth-submit--login,
   .auth-submit--register {
     padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
+    font-size: 15px;
+    min-height: 48px;
   }
 
   .auth-footer {
-    font-size: 0.8rem;
+    font-size: 13px;
     margin-top: 1rem;
+  }
+
+  .auth-row {
+    flex-wrap: wrap;
+    gap: 0.25rem;
   }
 }
 
@@ -792,24 +847,29 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 // ============================================
 @media (max-width: 375px) {
   .auth-visual {
-    min-height: 150px;
-    max-height: 180px;
+    min-height: 120px;
+    max-height: 170px;
     padding: 1rem;
   }
 
-  .visual-brand { font-size: 1.5rem; }
-  .visual-tagline { font-size: 0.78rem; max-width: 200px; }
+  .visual-brand { font-size: 1.6rem; }
+  .visual-tagline { font-size: 0.8rem; max-width: 200px; }
 
   .visual-equalizer { height: 20px; gap: 2px; }
   .visual-equalizer .eq-bar { width: 3px; border-radius: 2px; }
 
   .auth-login-panel,
   .auth-register-panel {
-    padding: 1rem 0.75rem;
+    padding: 0;
   }
 
   .auth-form-area {
     padding: 1rem 0.75rem;
+
+    &--register,
+    &--login {
+      padding: 1rem 0.75rem;
+    }
   }
 
   .auth-card {
@@ -819,12 +879,12 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 
   .auth-header--login h1,
   .auth-header--register h1 {
-    font-size: 1.15rem;
+    font-size: 1.35rem;
   }
 
   .auth-header--login p,
   .auth-header--register p {
-    font-size: 0.75rem;
+    font-size: 13px;
   }
 
   .auth-form--login,
@@ -833,14 +893,16 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   }
 
   .input-wrap input {
-    font-size: 0.85rem;
-    padding: 0.6rem 0.8rem 0.6rem 2.5rem;
+    font-size: 14px;
+    padding: 0.65rem 0.8rem 0.65rem 2.5rem;
+    min-height: 44px;
   }
 
   .auth-submit--login,
   .auth-submit--register {
     padding: 0.65rem 1.25rem;
-    font-size: 0.85rem;
+    font-size: 14px;
+    min-height: 46px;
   }
 }
 
@@ -849,24 +911,29 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 // ============================================
 @media (max-width: 320px) {
   .auth-visual {
-    min-height: 120px;
-    max-height: 150px;
+    min-height: 100px;
+    max-height: 140px;
     padding: 0.75rem;
   }
 
-  .visual-brand { font-size: 1.3rem; }
-  .visual-tagline { font-size: 0.72rem; max-width: 180px; }
+  .visual-brand { font-size: 1.4rem; }
+  .visual-tagline { font-size: 0.75rem; max-width: 180px; }
 
   .visual-equalizer { height: 16px; }
   .visual-equalizer .eq-bar { width: 2px; }
 
   .auth-login-panel,
   .auth-register-panel {
-    padding: 0.75rem 0.6rem;
+    padding: 0;
   }
 
   .auth-form-area {
     padding: 0.75rem 0.6rem;
+
+    &--register,
+    &--login {
+      padding: 0.75rem 0.6rem;
+    }
   }
 
   .auth-card {
@@ -876,7 +943,7 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 
   .auth-header--login h1,
   .auth-header--register h1 {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     margin-bottom: 0.25rem;
   }
 
@@ -887,12 +954,13 @@ $glow-orange: rgba(255, 107, 53, 0.3);
 
   .auth-header--login p,
   .auth-header--register p {
-    font-size: 0.7rem;
+    font-size: 12px;
   }
 
   .input-wrap input {
-    font-size: 0.8rem;
-    padding: 0.55rem 0.7rem 0.55rem 2.2rem;
+    font-size: 14px;
+    padding: 0.6rem 0.7rem 0.6rem 2.2rem;
+    min-height: 42px;
   }
 
   .input-wrap .input-icon {
@@ -904,12 +972,13 @@ $glow-orange: rgba(255, 107, 53, 0.3);
   .auth-submit--login,
   .auth-submit--register {
     padding: 0.6rem 1rem;
-    font-size: 0.82rem;
+    font-size: 14px;
     margin-top: 0.5rem;
+    min-height: 44px;
   }
 
   .auth-footer {
-    font-size: 0.75rem;
+    font-size: 12px;
     margin-top: 0.75rem;
   }
 }
