@@ -9,7 +9,8 @@ function getCookieOptions() {
     return {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "lax" : "strict",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        path: "/",
         maxAge: jwtExpiryMs
     };
 }
@@ -146,7 +147,8 @@ async function logoutUser(req, res) {
     res.clearCookie("token", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "lax" : "strict"
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        path: "/"
     });
 
     if (!token) {
